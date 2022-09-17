@@ -1,5 +1,5 @@
 // import Link from "next/link";
-const LinkPage = () => {
+const Header = () => {
   return <></>;
 };
-export default LinkPage;
+export default Header;

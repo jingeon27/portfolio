@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-
+import styled from "styled-components";
 const Home: NextPage = () => {
   return (
     <>
@@ -11,8 +9,8 @@ const Home: NextPage = () => {
         <meta name="portfolio" content="introduce for me" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <div>안</div>
     </>
   );
 };
-
 export default Home;
