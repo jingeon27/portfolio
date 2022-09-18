@@ -1,16 +1,27 @@
 /* eslint-disable react/jsx-key */
 import Link from "next/link";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import {
+  mainPageState,
+  skillPageState,
+  profilePageState,
+  aboutmePageState,
+} from "../public/state/atom";
 interface linkListProps {
   num: string;
-  page: any;
+  path: any;
 }
 const Header = () => {
+  const [state, setState] = useRecoilState<boolean>(mainPageState);
+  const [proState, setProState] = useRecoilState<boolean>(profilePageState);
+  const [aboutState, setAboutState] = useRecoilState<boolean>(aboutmePageState);
+  const [skillState, setSkillState] = useRecoilState<boolean>(skillPageState);
   const linkList: linkListProps[] = [
-    { num: "1", page: "/" },
-    { num: "2", page: "/profile" },
-    { num: "3", page: "/aboutme" },
-    { num: "4", page: "/skill" },
+    { num: "1", path: "/" },
+    { num: "2", path: "/profile" },
+    { num: "3", path: "/aboutme" },
+    { num: "4", path: "/skill" },
   ];
   return (
     <>
@@ -25,7 +36,7 @@ const Header = () => {
       </HeadLine>
       <MenuFrame>
         {linkList.map((user) => (
-          <Link href={user.page}>
+          <Link href={user.path}>
             <MenuBox>
               <NumberStyle>{user.num}</NumberStyle>
             </MenuBox>
