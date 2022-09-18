@@ -35,13 +35,11 @@ const Header = () => {
     </>
   );
 };
-const ActiveLink = ({ children, href }: { children: any; href: any }) => {
+const ActiveLink = ({ children, href }: { children: string; href: string }) => {
   const router = useRouter();
-  const style = {
-    color: router.asPath === href ? "#dcdf00" : "#000",
-  };
   const boxStyle = {
     border: router.asPath === href ? "4px solid #dcdf00" : "4px solid #000",
+    color: router.asPath === href ? "#dcdf00" : "#000",
   };
   const handleClick = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -50,7 +48,7 @@ const ActiveLink = ({ children, href }: { children: any; href: any }) => {
 
   return (
     <MenuBox href={href} onClick={handleClick} style={boxStyle}>
-      <NumberStyle style={style}> {children}</NumberStyle>
+      <NumberStyle> {children}</NumberStyle>
     </MenuBox>
   );
 };
