@@ -1,27 +1,32 @@
 /* eslint-disable react/jsx-key */
 import Link from "next/link";
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import {
-  mainPageState,
-  skillPageState,
-  profilePageState,
-  aboutmePageState,
-} from "../public/state/atom";
+import { useRouter } from "next/router";
+import { AnyTxtRecord } from "dns";
 interface linkListProps {
   num: string;
   path: any;
+  func: any;
 }
 const Header = () => {
-  const [state, setState] = useRecoilState<boolean>(mainPageState);
-  const [proState, setProState] = useRecoilState<boolean>(profilePageState);
-  const [aboutState, setAboutState] = useRecoilState<boolean>(aboutmePageState);
-  const [skillState, setSkillState] = useRecoilState<boolean>(skillPageState);
+  const router = useRouter();
+  const main = {
+    color: router.pathname === "/" ? "#dcdf00" : "#000",
+  };
+  const profile = {
+    color: router.pathname === "/profile" ? "#dcdf00" : "#000",
+  };
+  const aboutme = {
+    color: router.pathname === "/aboutme" ? "#dcdf00" : "#000",
+  };
+  const skill = {
+    color: router.pathname === "/skill" ? "#dcdf00" : "#000",
+  };
   const linkList: linkListProps[] = [
-    { num: "1", path: "/" },
-    { num: "2", path: "/profile" },
-    { num: "3", path: "/aboutme" },
-    { num: "4", path: "/skill" },
+    { num: "1", path: "/", func: "main" },
+    { num: "2", path: "/profile", func: "profile" },
+    { num: "3", path: "/aboutme", func: "aboutme" },
+    { num: "4", path: "/skill", func: "skill" },
   ];
   return (
     <>
@@ -37,13 +42,34 @@ const Header = () => {
       <MenuFrame>
         {linkList.map((user) => (
           <Link href={user.path}>
-            <MenuBox>
-              <NumberStyle>{user.num}</NumberStyle>
-            </MenuBox>
+            {/* <MenuBox>
+              <NumberStyle style={main}>{user.num}</NumberStyle>
+            </MenuBox> */}
+            <ActiveLink href={user.path}>{user.num}</ActiveLink>
           </Link>
         ))}
       </MenuFrame>
     </>
+  );
+};
+const ActiveLink = ({ children, href }: { children: any; href: any }) => {
+  const router = useRouter();
+  const style = {
+    marginRight: 10,
+    color: router.asPath === href ? "#dcdf00" : "#000",
+  };
+  const boxStyle = {
+    border: router.asPath === href ? "4px solid #dcdf00" : "4px solid #000",
+  };
+  const handleClick = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    router.push(href);
+  };
+
+  return (
+    <MenuBox href={href} onClick={handleClick} style={boxStyle}>
+      <NumberStyle style={style}> {children}</NumberStyle>
+    </MenuBox>
   );
 };
 const HeadLine = styled.div`
@@ -94,7 +120,6 @@ const MenuBox = styled.a`
   position: relative;
   width: 60px;
   height: 60px;
-  border: 4px solid #000;
   margin-bottom: 20px;
   display: flex;
   border-radius: 15px;
@@ -108,9 +133,8 @@ const NumberStyle = styled.div`
   right: 0px;
   top: 2px;
   margin: 0 auto;
-  color: #000;
-  width: 48px;
-  height: 48px;
+  width: 33px;
+  height: 33px;
   text-align: center;
   text-decoration: none;
 `;
