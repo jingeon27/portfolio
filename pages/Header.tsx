@@ -1,6 +1,17 @@
+/* eslint-disable react/jsx-key */
 import Link from "next/link";
 import styled from "styled-components";
+interface linkListProps {
+  num: string;
+  page: any;
+}
 const Header = () => {
+  const linkList: linkListProps[] = [
+    { num: "1", page: "/" },
+    { num: "2", page: "/profile" },
+    { num: "3", page: "/aboutme" },
+    { num: "4", page: "/skill" },
+  ];
   return (
     <>
       <HeadLine>
@@ -12,7 +23,15 @@ const Header = () => {
           </Link>
         </TitleBox>
       </HeadLine>
-      <MenuFrame></MenuFrame>
+      <MenuFrame>
+        {linkList.map((user) => (
+          <Link href={user.page}>
+            <MenuBox>
+              <NumberStyle>{user.num}</NumberStyle>
+            </MenuBox>
+          </Link>
+        ))}
+      </MenuFrame>
     </>
   );
 };
@@ -52,14 +71,36 @@ const Title = styled.a`
   }
 `;
 const MenuFrame = styled.div`
-  width: 100px;
+  width: 60px;
   position: absolute;
-  height: 600px;
-  background-color: red;
+  height: 300px;
   top: 0px;
   bottom: 0px;
   margin: auto 0;
   right: 50px;
 `;
-const MenuBox = styled.a``;
+const MenuBox = styled.a`
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border: 4px solid #000;
+  margin-bottom: 20px;
+  display: flex;
+  border-radius: 15px;
+`;
+const NumberStyle = styled.div`
+  position: absolute;
+  font-family: "Gugi", cursive;
+  font-weight: 400;
+  font-size: 35px;
+  left: 0px;
+  right: 0px;
+  top: 2px;
+  margin: 0 auto;
+  color: #000;
+  width: 48px;
+  height: 48px;
+  text-align: center;
+  text-decoration: none;
+`;
 export default Header;
