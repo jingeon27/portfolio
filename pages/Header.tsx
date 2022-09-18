@@ -2,7 +2,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { AnyTxtRecord } from "dns";
 interface linkListProps {
   num: string;
   path: any;
@@ -10,18 +9,6 @@ interface linkListProps {
 }
 const Header = () => {
   const router = useRouter();
-  const main = {
-    color: router.pathname === "/" ? "#dcdf00" : "#000",
-  };
-  const profile = {
-    color: router.pathname === "/profile" ? "#dcdf00" : "#000",
-  };
-  const aboutme = {
-    color: router.pathname === "/aboutme" ? "#dcdf00" : "#000",
-  };
-  const skill = {
-    color: router.pathname === "/skill" ? "#dcdf00" : "#000",
-  };
   const linkList: linkListProps[] = [
     { num: "1", path: "/", func: "main" },
     { num: "2", path: "/profile", func: "profile" },
@@ -42,9 +29,6 @@ const Header = () => {
       <MenuFrame>
         {linkList.map((user) => (
           <Link href={user.path}>
-            {/* <MenuBox>
-              <NumberStyle style={main}>{user.num}</NumberStyle>
-            </MenuBox> */}
             <ActiveLink href={user.path}>{user.num}</ActiveLink>
           </Link>
         ))}
