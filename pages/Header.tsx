@@ -8,7 +8,6 @@ interface linkListProps {
   func: any;
 }
 const Header = () => {
-  const router = useRouter();
   const linkList: linkListProps[] = [
     { num: "1", path: "/", func: "main" },
     { num: "2", path: "/profile", func: "profile" },
@@ -39,7 +38,6 @@ const Header = () => {
 const ActiveLink = ({ children, href }: { children: any; href: any }) => {
   const router = useRouter();
   const style = {
-    marginRight: 10,
     color: router.asPath === href ? "#dcdf00" : "#000",
   };
   const boxStyle = {
@@ -117,8 +115,8 @@ const NumberStyle = styled.div`
   right: 0px;
   top: 2px;
   margin: 0 auto;
-  width: 33px;
-  height: 33px;
+  width: 48px;
+  height: 48px;
   text-align: center;
   text-decoration: none;
 `;
