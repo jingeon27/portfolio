@@ -9,7 +9,6 @@
 ---
 
 - next.js
-- recoil
 - react-bootstrap
 - typescript
 - styled-components
