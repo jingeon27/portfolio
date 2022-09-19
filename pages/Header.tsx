@@ -120,11 +120,10 @@ const MenuBox = styled.a`
   display: flex;
   border-radius: 15px;
   :hover {
-    color: #dcdf00 !important;
-    border: 4px solid #dcdf00 !important;
+    color: #9fa120 !important;
+    border: 4px solid #9fa120 !important;
   }
   :hover .hoverBox {
-    transition: 2s;
     position: absolute;
     right: 100px;
     top: 0px;
@@ -150,16 +149,14 @@ const MenuBox = styled.a`
     font-weight: 400;
     font-size: 24px;
   }
-  :hover .hoverTail {
-    transition: 2s;
+  :hover .hoverBox:after {
+    content: "";
     position: absolute;
-    left: 300px;
-    top: 20px;
-    border-top: 0px solid;
-    border-left: 40px solid #fff;
-    border-right: 0px solid;
-    border-bottom: 20px solid;
-    color: #323232 !important;
+    top: 15px;
+    right: -30px;
+    border-left: 30px solid #fff;
+    border-top: 0px solid transparent;
+    border-bottom: 15px solid transparent;
   }
 `;
 const NumberStyle = styled.div`

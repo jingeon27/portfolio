@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styled, { keyframes, css } from "styled-components";
 import BackgroundImage from "../public/image/background.jpg";
+import PatternImage from "../public/image/pattern.png";
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 const Home: NextPage = () => {
@@ -14,19 +15,24 @@ const Home: NextPage = () => {
   }, []);
   return (
     <>
-      <div>메인페이지입니다.</div>
-
       <ImageLocate>
         <Picture
           src={BackgroundImage}
+          alt="메인배경이미지"
           visible={true}
-          width={1200}
+          width={1920}
           height={980}
         ></Picture>
       </ImageLocate>
       <Wrap>
         <ChatBox>Hello</ChatBox>
       </Wrap>
+      <Table
+        src={PatternImage}
+        alt="배경패턴이미지"
+        width={1920}
+        height={980}
+      />
     </>
   );
 };
@@ -93,4 +99,11 @@ const ChatBox = styled.div`
   animation: ${motion} 0.3s linear 0s infinite alternate;
   margin-top: 0;
   color: #000;
+`;
+const Table = styled(Image)`
+  position: absolute;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 90%;
 `;
