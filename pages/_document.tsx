@@ -38,7 +38,7 @@ class MyDocument extends Document {
       <Html>
         <Head>
           <link
-            href="https://fonts.googleapis.com/css2?family=Gugi&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Amiko:wght@400;600;700&family=Gugi&display=swap"
             rel="stylesheet"
           />
         </Head>

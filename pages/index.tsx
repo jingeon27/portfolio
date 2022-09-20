@@ -2,9 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import styled, { keyframes, css } from "styled-components";
 import BackgroundImage from "../public/image/background.jpg";
-import PatternImage from "../public/image/pattern.png";
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import CanvasAnimation from "./hook/canvasAnimation";
+import Github from "../public/image/Github.png";
 const Home: NextPage = () => {
   const handleScroll = (e: any) => {
     console.log(e);
@@ -15,24 +16,20 @@ const Home: NextPage = () => {
   }, []);
   return (
     <>
-      <ImageLocate>
-        <Picture
-          src={BackgroundImage}
-          alt="메인배경이미지"
-          visible={true}
-          width={1920}
-          height={980}
-        ></Picture>
-      </ImageLocate>
       <Wrap>
-        <ChatBox>Hello</ChatBox>
+        <ChatBox>안녕하세요! 김진건입니다.</ChatBox>
       </Wrap>
-      <Table
-        src={PatternImage}
-        alt="배경패턴이미지"
-        width={1920}
-        height={980}
-      />
+      <Layout>
+        <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
+      </Layout>
+      <Position>
+        <Image
+          src={Github}
+          alt="github이미지입니다."
+          width={400}
+          height={400}
+        ></Image>
+      </Position>
     </>
   );
 };
@@ -80,6 +77,9 @@ const motion = keyframes`
     }
 `;
 const Wrap = styled.div`
+  position: absolute;
+  top: 550px;
+  left: 1000px;
   text-align: center;
   margin-top: 20px;
 `;
@@ -93,17 +93,27 @@ const ChatBox = styled.div`
   padding: 0px;
   width: 300px;
   height: 60px;
-
   border-radius: 10px;
   background-color: #fff;
   animation: ${motion} 0.3s linear 0s infinite alternate;
   margin-top: 0;
-  color: #000;
+  color: #000 !important;
+  font-family: "Gugi", cursive;
+  font-weight: 400;
+  font-size: 24px;
 `;
-const Table = styled(Image)`
+const Layout = styled.div`
   position: absolute;
-  bottom: 0px;
-  background-color: rgba(0, 0, 0, 0.3);
-  width: 100%;
-  height: 90%;
+  top: -100px;
+  margin: 0px;
+  padding: 0px;
+`;
+const Position = styled.div`
+  top: 550px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
 `;
