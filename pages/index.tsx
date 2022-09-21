@@ -1,11 +1,19 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import styled, { keyframes, css } from "styled-components";
-import BackgroundImage from "../public/image/background.jpg";
 import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import CanvasAnimation from "./hook/canvasAnimation";
 import Github from "../public/image/Github.png";
+import TypeImage from "../public/image/Typescript.png";
+import RecoilImage from "../public/image/Typescript.png";
+import BootImage from "../public/image/Bootstrap.png";
+import CssImage from "../public/image/css.png";
+import HtmlImage from "../public/image/html.jpg";
+import NextJsImage from "../public/image/nextjs.png";
+import ReactImage from "../public/image/React.png";
+import QueryImage from "../public/image/react-query.jpg";
+import JsImage from "../public/image/js.png";
 const Home: NextPage = () => {
   const handleScroll = (e: any) => {
     console.log(e);
@@ -23,12 +31,22 @@ const Home: NextPage = () => {
         <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
       </Layout>
       <Position>
-        <Image
-          src={Github}
-          alt="github이미지입니다."
-          width={400}
-          height={400}
-        ></Image>
+        <div className="front">
+          <Image
+            src={Github}
+            alt="github이미지입니다."
+            width={100}
+            height={100}
+          ></Image>
+        </div>
+        <div className="back">
+          <Image
+            src={TypeImage}
+            alt="얼굴이미지입니다."
+            width={100}
+            height={100}
+          ></Image>
+        </div>
       </Position>
     </>
   );
@@ -98,13 +116,13 @@ const ChatBox = styled.div`
   animation: ${motion} 0.3s linear 0s infinite alternate;
   margin-top: 0;
   color: #000 !important;
-  font-family: "Gugi", cursive;
-  font-weight: 400;
+  font-family: "Amiko", sans-serif;
+  font-weight: 700;
   font-size: 24px;
 `;
 const Layout = styled.div`
   position: absolute;
-  top: -100px;
+  top: 100px;
   margin: 0px;
   padding: 0px;
 `;
@@ -116,4 +134,23 @@ const Position = styled.div`
   margin: 0 auto;
   width: 100px;
   height: 100px;
+  perspective: 600px;
+  .front,
+  .back {
+    backface-visibility: hidden;
+    transition: 1s;
+    position: absolute;
+  }
+  .front {
+    transform: rotateY(0deg);
+  }
+  :hover .front {
+    transform: rotateY(180deg);
+  }
+  .back {
+    transform: rotateY(-180deg);
+  }
+  :hover .back {
+    transform: rotateY(0deg);
+  }
 `;

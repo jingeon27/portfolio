@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
 }
  a { cursor: pointer; text-decoration: none; }
  body {
-    background-color: #696969;
+    background-color: #323232;
     overflow: hidden;
      -webkit-user-select:none;
   -moz-user-select:none;
