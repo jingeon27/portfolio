@@ -1,6 +1,5 @@
 import { PI2 } from "./../lib/math";
 export interface ILightSource {
-  drawRadialGradientBehindLightSource(ctx: CanvasRenderingContext2D): unknown;
   drawLightSource: (ctx: CanvasRenderingContext2D) => void;
   drawLightLines: (
     ctx: CanvasRenderingContext2D,
@@ -24,23 +23,6 @@ export class LightSource implements ILightSource {
         ? 24
         : canvasWidth / 48;
   }
-
-  drawRadialGradientBehindLightSource = (ctx: CanvasRenderingContext2D) => {
-    // const gradientRadius = this.radius * 16;
-    // const gradient = this.centerX.createRadialGradient(
-    //   this.centerX,
-    //   this.centerY,
-    //   0,
-    //   this.centerX,
-    //   this.centerY,
-    //   gradientRadius
-    // );
-    // gradient.addColorStop(0, "rgb(102, 103, 171, 0.2");
-    // gradient.addColorStop(1, "rgb(31, 31, 36, 0.1");
-    // ctx.fillStyle = gradient;
-    // ctx.arc(this.centerX, this.centerY, gradientRadius, 0, PI2);
-    // ctx.fill();
-  };
   drawLightSource(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.fillStyle = "rgb(0,0,0, 0)";

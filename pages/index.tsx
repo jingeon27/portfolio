@@ -1,29 +1,13 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import styled, { keyframes, css } from "styled-components";
-import { useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
+import { BsPersonCircle } from "../node_modules/react-icons/bs";
 import CanvasAnimation from "./hook/canvasAnimation";
-import Github from "../public/image/Github.png";
-import TypeImage from "../public/image/Typescript.png";
-import RecoilImage from "../public/image/Typescript.png";
-import BootImage from "../public/image/Bootstrap.png";
-import CssImage from "../public/image/css.png";
-import HtmlImage from "../public/image/html.jpg";
-import NextJsImage from "../public/image/nextjs.png";
-import ReactImage from "../public/image/React.png";
-import QueryImage from "../public/image/react-query.jpg";
-import JsImage from "../public/image/js.png";
+import SlidePage from "./slide";
 const Home: NextPage = () => {
-  const handleScroll = (e: any) => {
-    console.log(e);
-  };
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
   return (
     <>
+      <SlidePage />
       <Wrap>
         <ChatBox>안녕하세요! 김진건입니다.</ChatBox>
       </Wrap>
@@ -31,7 +15,7 @@ const Home: NextPage = () => {
         <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
       </Layout>
       <Position>
-        <div className="front">
+        {/* <div className="front">
           <Image
             src={Github}
             alt="github이미지입니다."
@@ -46,13 +30,16 @@ const Home: NextPage = () => {
             width={100}
             height={100}
           ></Image>
-        </div>
+        </div> */}
       </Position>
+      <PersonIcon />
     </>
   );
 };
 export default Home;
-
+const Slide = () => {
+  return <></>;
+};
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -96,7 +83,7 @@ const motion = keyframes`
 `;
 const Wrap = styled.div`
   position: absolute;
-  top: 550px;
+  top: 750px;
   left: 1000px;
   text-align: center;
   margin-top: 20px;
@@ -153,4 +140,15 @@ const Position = styled.div`
   :hover .back {
     transform: rotateY(0deg);
   }
+`;
+
+const PersonIcon = styled(BsPersonCircle)`
+  top: 755px;
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  width: 90px;
+  height: 90px;
+  color: rgb(176, 176, 212, 1);
 `;

@@ -31,7 +31,6 @@ const canvasAnimation: React.FC<canvasAnimationProps> = ({
   const animate = (ctx: CanvasRenderingContext2D) => {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
     fillBackground(ctx);
-    lightSource.drawRadialGradientBehindLightSource(ctx);
     lightSource.drawLightSource(ctx);
     for (let i = 0; i < points.length; i++) {
       lightSource.drawLightLines(
