@@ -15,9 +15,11 @@ import Image, { StaticImageData } from "next/image";
 import { useEffect } from "react";
 interface rightImageProps {
   Image: StaticImageData;
+  i: number;
   Lang: string;
 }
 const SlidePage = () => {
+  const slideRef = useRef<HTMLLIElement[] | null[]>([]);
   let loopInterval = setInterval(() => {
     nextMove();
   }, 3000);
@@ -39,11 +41,11 @@ const SlidePage = () => {
   //       }px, 0)`;
   //   };
   const rightImage: rightImageProps[] = [
-    { Image: HtmlImage, Lang: "HTML5" },
-    { Image: CssImage, Lang: "css3" },
-    { Image: JsImage, Lang: "javascript" },
-    { Image: TypeImage, Lang: "typescript" },
-    { Image: ClangImage, Lang: "C lang" },
+    { Image: HtmlImage, i: 0, Lang: "HTML5" },
+    { Image: CssImage, i: 1, Lang: "css3" },
+    { Image: JsImage, i: 2, Lang: "javascript" },
+    { Image: TypeImage, i: 3, Lang: "typescript" },
+    { Image: ClangImage, i: 4, Lang: "C lang" },
   ];
   return (
     <>
@@ -51,7 +53,11 @@ const SlidePage = () => {
         <SlideItemList>
           {rightImage.map((user) => (
             <>
-              <SlideItem>
+              <SlideItem
+                ref={(el) => {
+                  slideRef.current[user.i] = el;
+                }}
+              >
                 <SlideImage
                   src={user.Image}
                   width={50}
@@ -62,34 +68,6 @@ const SlidePage = () => {
             </>
           ))}
         </SlideItemList>
-        {/* <SlideItemList>
-          {rightImage.map((user) => (
-            <>
-              <SlideItem>
-                <SlideImage
-                  src={user.Image}
-                  width={50}
-                  height={50}
-                ></SlideImage>
-                <LangText style={{ color: "#fff" }}>{user.Lang}</LangText>
-              </SlideItem>
-            </>
-          ))}
-        </SlideItemList>
-        <SlideItemList>
-          {rightImage.map((user) => (
-            <>
-              <SlideItem>
-                <SlideImage
-                  src={user.Image}
-                  width={50}
-                  height={50}
-                ></SlideImage>
-                <LangText style={{ color: "#fff" }}>{user.Lang}</LangText>
-              </SlideItem>
-            </>
-          ))}
-        </SlideItemList> */}
       </SlideContainer>
     </>
   );
