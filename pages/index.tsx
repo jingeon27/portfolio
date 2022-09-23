@@ -1,20 +1,35 @@
+import Image from "next/image";
 import type { NextPage } from "next";
 import styled, { keyframes, css } from "styled-components";
-import Image from "next/image";
-import { BsPersonCircle } from "../node_modules/react-icons/bs";
 import CanvasAnimation from "./hook/canvasAnimation";
-import SlidePage from "./slide";
+import GithubImage from "../public/image/Github.png";
+import SlidePage from "./hook/slide";
+import dynamic from "next/dist/shared/lib/dynamic";
+const SlideProps = dynamic(() => import("./hook/slide"), {
+  ssr: false,
+});
 const Home: NextPage = () => {
   return (
     <>
-      <SlidePage />
+      <SlideProps />
       <Wrap>
-        <ChatBox>안녕하세요! 김진건입니다.</ChatBox>
+        <ChatBox>
+          <ChatBoxPosition> Github repo 바로가기입니다. </ChatBoxPosition>
+        </ChatBox>
       </Wrap>
       <Layout>
         <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
       </Layout>
       <Position>
+        <a href="https://github.com/jingeon27/portfolio">
+          <Image
+            src={GithubImage}
+            alt="github 바로가기 링크입니다."
+            width={100}
+            height={100}
+          />
+        </a>
+
         {/* <div className="front">
           <Image
             src={Github}
@@ -32,14 +47,10 @@ const Home: NextPage = () => {
           ></Image>
         </div> */}
       </Position>
-      <PersonIcon />
     </>
   );
 };
 export default Home;
-const Slide = () => {
-  return <></>;
-};
 const fadeIn = keyframes`
   0% {
     opacity: 0;
@@ -74,7 +85,7 @@ const ImageLocate = styled.div`
   height: 90%;
 `;
 const motion = keyframes`
-  	0% {
+   0% {
       margin-top: 0px;
     }
 	100% {
@@ -88,16 +99,21 @@ const Wrap = styled.div`
   text-align: center;
   margin-top: 20px;
 `;
+const ChatBoxPosition = styled.div`
+  position: absolute;
+  left: 10px;
+  top: 12px;
+`;
 const ChatBox = styled.div`
   position: absolute;
-  top: 300px;
+  top: 305px;
   transition: 2s;
   right: 100px;
   top: 0px;
   margin: 0px;
   padding: 0px;
   width: 300px;
-  height: 60px;
+  height: 50px;
   border-radius: 10px;
   background-color: #fff;
   animation: ${motion} 0.3s linear 0s infinite alternate;
@@ -105,7 +121,7 @@ const ChatBox = styled.div`
   color: #000 !important;
   font-family: "Amiko", sans-serif;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 20px;
 `;
 const Layout = styled.div`
   position: absolute;
@@ -113,42 +129,41 @@ const Layout = styled.div`
   margin: 0px;
   padding: 0px;
 `;
+// const Position = styled.div`
+//   top: 550px;
+//   position: absolute;
+//   left: 0px;
+//   right: 0px;
+//   margin: 0 auto;
+//   width: 100px;
+//   height: 100px;
+//   perspective: 600px;
+//   .front,
+//   .back {
+//     backface-visibility: hidden;
+//     transition: 1s;
+//     position: absolute;
+//   }
+//   .front {
+//     transform: rotateY(0deg);
+//   }
+//   :hover .front {
+//     transform: rotateY(180deg);
+//   }
+//   .back {
+//     transform: rotateY(-180deg);
+//   }
+//   :hover .back {
+//     transform: rotateY(0deg);
+//   }
+// `;
+
 const Position = styled.div`
-  top: 550px;
+  top: 750px;
   position: absolute;
   left: 0px;
   right: 0px;
   margin: 0 auto;
   width: 100px;
   height: 100px;
-  perspective: 600px;
-  .front,
-  .back {
-    backface-visibility: hidden;
-    transition: 1s;
-    position: absolute;
-  }
-  .front {
-    transform: rotateY(0deg);
-  }
-  :hover .front {
-    transform: rotateY(180deg);
-  }
-  .back {
-    transform: rotateY(-180deg);
-  }
-  :hover .back {
-    transform: rotateY(0deg);
-  }
-`;
-
-const PersonIcon = styled(BsPersonCircle)`
-  top: 755px;
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  margin: 0 auto;
-  width: 90px;
-  height: 90px;
-  color: rgb(176, 176, 212, 1);
 `;
