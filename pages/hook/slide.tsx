@@ -16,53 +16,68 @@ interface rightImageProps {
   Lang: string;
 }
 const SlidePage = () => {
-  const slideRef = useRef<any>([]);
-  const containerRef = useRef<any>();
   const [count, setCount] = useState<number>(0);
-  // const elementLength = 5;
-  // function callback() {
-  //   setCount(count + 1);
-  // }
-  // useEffect(() => {
-  //   containerRef.current = callback;
-  // });
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     containerRef.current();
-  //   }, 2500);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // });
-  const [activeIndex, setActiveIndex] = useState<number>(0);
-  const handleNext = () => {
-    setActiveIndex((activeIndex) => (activeIndex + 1) % 5);
-  };
+  const [state, setState] = useState<rightImageProps[]>([]);
+  const containerRef = useRef<any>();
+  const slideRef = useRef<any>([]);
+
   useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    intervalId = setInterval(handleNext, 1000);
-    return () => {
-      clearInterval(intervalId);
+    let interval: any;
+
+    const setTransition = (value: string) => {
+      containerRef.current.style.transition = value;
     };
-  }, []);
+    const resetTranslate = () => {
+      slideRef.current.style.transform = `translate(-${0}px, 0)`;
+    };
+    const Translate = ({ index }: { index: number }) => {
+      slideRef.current.style.transform = `translatex(${(index - 1) * 384}px)`;
+    };
+    const cloneNode = () => {
+      state.unshift(state[4]);
+      state.pop();
+    };
+    const autoplayIterator = () => {
+      setCount(count + 1);
+      setTransition("all 0.3s linear");
+      Translate({ index: count });
+      cloneNode();
+      if (count > 4) {
+        clearInterval(interval);
+        setTimeout(() => {
+          setCount(0);
+          cloneNode();
+          setTransition("");
+          resetTranslate();
+          autoplay({ duration: 2000 });
+        }, 300);
+      }
+    };
+
+    const autoplay = ({ duration }: { duration: number }) => {
+      interval = setInterval(autoplayIterator, duration);
+    };
+  });
   const rightImage: rightImageProps[] = [
-    { Image: cssImage, i: 0, Lang: "css3" },
-    { Image: jsImage, i: 1, Lang: "javascript" },
-    { Image: typeImage, i: 2, Lang: "typescript" },
-    { Image: clangImage, i: 3, Lang: "C lang" },
-    { Image: htmlImage, i: 4, Lang: "HTML5" },
-    { Image: cssImage, i: 5, Lang: "css3" },
-    { Image: jsImage, i: 6, Lang: "javascript" },
-    { Image: typeImage, i: 7, Lang: "typescript" },
-    { Image: clangImage, i: 8, Lang: "C lang" },
+    { Image: clangImage, i: 0, Lang: "C lang" },
+    { Image: htmlImage, i: 1, Lang: "HTML5" },
+    { Image: cssImage, i: 2, Lang: "css3" },
+    { Image: jsImage, i: 3, Lang: "javascript" },
+    { Image: typeImage, i: 4, Lang: "typescript" },
+    { Image: clangImage, i: 5, Lang: "C lang" },
   ];
+  setState(rightImage);
   return (
     <>
-      <SlideContainer>
-        <SlideItemList ref={containerRef}>
-          {rightImage.map((user) => (
+      <SlideContainer ref={containerRef}>
+        <SlideItemList>
+          {state.map((user) => (
             <>
-              <SlideItem activeIndex={activeIndex}>
+              <SlideItem
+                ref={(el) => {
+                  slideRef.current[user.i] = el;
+                }}
+              >
                 <SlideImage
                   src={user.Image}
                   width={50}
@@ -81,22 +96,20 @@ export default SlidePage;
 const SlideContainer = styled.div`
   position: relative;
   overflow: hidden;
-  top: 250px;
-  width: 3456px;
+  top: 150px;
+  width: 2304px;
   height: 200px;
-  left: -1536px;
+  left: -384px;
 `;
 const SlideItemList = styled.ul`
   display: flex;
 `;
-const SlideItem = styled.li<{ activeIndex: number }>`
+const SlideItem = styled.li`
   width: 200px;
   height: 100px;
   margin-right: 100px;
   margin-left: 100px;
   list-style: none;
-  transform: ${(props) => "translateX(" + props.activeIndex * 384 + "px)"};
-  transition: 1s ease;
 `;
 const SlideImage = styled(Image)`
   display: block;
