@@ -9,8 +9,9 @@ import cssImage from "../../public/image/css.png";
 import htmlImage from "../../public/image/HTML.png";
 import jsImage from "../../public/image/JS.png";
 import clangImage from "../../public/image/C.png";
-import React from "react";
+import React, { useEffect } from "react";
 import Image, { StaticImageData } from "next/image";
+import { useRouter } from "next/router";
 interface imageProps {
   Image: StaticImageData;
   Lang: string;
@@ -40,6 +41,12 @@ const SlidePage = () => {
     { Image: nextJsImage, Lang: "Next.js" },
     { Image: queryImage, Lang: "ReactQuery" },
   ];
+  const router = useRouter();
+  useEffect(() => {
+    document.addEventListener("wheel", (e) => {
+      router.push("/profile");
+    });
+  }, []);
   return (
     <>
       <SlideContainer>
