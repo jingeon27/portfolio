@@ -15,69 +15,71 @@ interface rightImageProps {
   i: number;
   Lang: string;
 }
-const SlidePage = () => {
+const Slide = ({ children }: { children: any }) => {
   const [count, setCount] = useState<number>(0);
-  const [state, setState] = useState<rightImageProps[]>([]);
-  const containerRef = useRef<any>();
-  const slideRef = useRef<any>([]);
-
+  const handleNext = () => {
+    setCount((count) => (count + 1) % 8);
+  };
   useEffect(() => {
-    let interval: any;
-
-    const setTransition = (value: string) => {
-      containerRef.current.style.transition = value;
+    let intervalId: NodeJS.Timeout;
+    intervalId = setInterval(handleNext, 1000);
+    return () => {
+      clearInterval(intervalId);
     };
-    const resetTranslate = () => {
-      slideRef.current.style.transform = `translate(-${0}px, 0)`;
+  }, []);
+  const slideProps = React.Children.map(children, (child) =>
+    React.cloneElement(child, { count })
+  );
+  return <SlideContainer></SlideContainer>;
+};
+const SlidePage = () => {
+  const slideRef = useRef<any>([]);
+  const containerRef = useRef<any>();
+  const [count, setCount] = useState<number>(0);
+  // const elementLength = 5;
+  // function callback() {
+  //   setCount(count + 1);
+  // }
+  // useEffect(() => {
+  //   containerRef.current = callback;
+  // });
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     containerRef.current();
+  //   }, 2500);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // });
+  const handleNext = () => {
+    setCount((count) => (count + 1) % 8);
+  };
+  useEffect(() => {
+    let intervalId: NodeJS.Timeout;
+    intervalId = setInterval(handleNext, 1000);
+    return () => {
+      clearInterval(intervalId);
     };
-    const Translate = ({ index }: { index: number }) => {
-      slideRef.current.style.transform = `translatex(${(index - 1) * 384}px)`;
-    };
-    const cloneNode = () => {
-      state.unshift(state[4]);
-      state.pop();
-    };
-    const autoplayIterator = () => {
-      setCount(count + 1);
-      setTransition("all 0.3s linear");
-      Translate({ index: count });
-      cloneNode();
-      if (count > 4) {
-        clearInterval(interval);
-        setTimeout(() => {
-          setCount(0);
-          cloneNode();
-          setTransition("");
-          resetTranslate();
-          autoplay({ duration: 2000 });
-        }, 300);
-      }
-    };
-
-    const autoplay = ({ duration }: { duration: number }) => {
-      interval = setInterval(autoplayIterator, duration);
-    };
-  });
+  }, []);
   const rightImage: rightImageProps[] = [
-    { Image: clangImage, i: 0, Lang: "C lang" },
-    { Image: htmlImage, i: 1, Lang: "HTML5" },
-    { Image: cssImage, i: 2, Lang: "css3" },
-    { Image: jsImage, i: 3, Lang: "javascript" },
-    { Image: typeImage, i: 4, Lang: "typescript" },
-    { Image: clangImage, i: 5, Lang: "C lang" },
+    { Image: htmlImage, i: 4, Lang: "HTML5" },
+    { Image: cssImage, i: 5, Lang: "css3" },
+    { Image: jsImage, i: 6, Lang: "javascript" },
+    { Image: typeImage, i: 7, Lang: "typescript" },
+    { Image: clangImage, i: 8, Lang: "C lang" },
+    { Image: htmlImage, i: 4, Lang: "HTML5" },
+    { Image: cssImage, i: 5, Lang: "css3" },
+    { Image: jsImage, i: 6, Lang: "javascript" },
+    { Image: typeImage, i: 7, Lang: "typescript" },
+    { Image: clangImage, i: 8, Lang: "C lang" },
   ];
-  setState(rightImage);
   return (
     <>
-      <SlideContainer ref={containerRef}>
-        <SlideItemList>
-          {state.map((user) => (
+      <SlideContainer>
+        <SlideItemList ref={containerRef}>
+          {rightImage.map((user) => (
             <>
-              <SlideItem
-                ref={(el) => {
-                  slideRef.current[user.i] = el;
-                }}
-              >
+              <SlideItem activeIndex={count}>
                 <SlideImage
                   src={user.Image}
                   width={50}
@@ -93,24 +95,54 @@ const SlidePage = () => {
   );
 };
 export default SlidePage;
+const scroll = keyframes`
+  	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-384px * 5))}
+`;
 const SlideContainer = styled.div`
-  position: relative;
+  height: 100px;
+  margin: auto;
   overflow: hidden;
-  top: 150px;
-  width: 2304px;
-  height: 200px;
-  left: -384px;
+  position: relative;
+  top: 200px;
+  width: 1920px;
+
+  &::before,
+  &::after {
+    background: linear-gradient(
+      to right,
+      rgba(50, 50, 50, 1) 0%,
+      rgba(50, 50, 50, 0) 100%
+    );
+    content: "";
+    height: 100px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  &::before {
+    left: 0;
+    top: 0;
+  }
 `;
 const SlideItemList = styled.ul`
+  animation: ${scroll} 40s linear infinite;
   display: flex;
+  width: calc(384px * 10);
 `;
-const SlideItem = styled.li`
-  width: 200px;
+const SlideItem = styled.li<{ activeIndex: number }>`
   height: 100px;
-  margin-right: 100px;
-  margin-left: 100px;
+  width: 384px;
   list-style: none;
 `;
+
 const SlideImage = styled(Image)`
   display: block;
   width: 100%;
