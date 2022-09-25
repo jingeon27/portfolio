@@ -12,74 +12,28 @@ import React, { useRef, useEffect, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 interface rightImageProps {
   Image: StaticImageData;
-  i: number;
   Lang: string;
 }
-const Slide = ({ children }: { children: any }) => {
-  const [count, setCount] = useState<number>(0);
-  const handleNext = () => {
-    setCount((count) => (count + 1) % 8);
-  };
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    intervalId = setInterval(handleNext, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
-  const slideProps = React.Children.map(children, (child) =>
-    React.cloneElement(child, { count })
-  );
-  return <SlideContainer></SlideContainer>;
-};
 const SlidePage = () => {
-  const slideRef = useRef<any>([]);
-  const containerRef = useRef<any>();
-  const [count, setCount] = useState<number>(0);
-  // const elementLength = 5;
-  // function callback() {
-  //   setCount(count + 1);
-  // }
-  // useEffect(() => {
-  //   containerRef.current = callback;
-  // });
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     containerRef.current();
-  //   }, 2500);
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // });
-  const handleNext = () => {
-    setCount((count) => (count + 1) % 8);
-  };
-  useEffect(() => {
-    let intervalId: NodeJS.Timeout;
-    intervalId = setInterval(handleNext, 1000);
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
   const rightImage: rightImageProps[] = [
-    { Image: htmlImage, i: 4, Lang: "HTML5" },
-    { Image: cssImage, i: 5, Lang: "css3" },
-    { Image: jsImage, i: 6, Lang: "javascript" },
-    { Image: typeImage, i: 7, Lang: "typescript" },
-    { Image: clangImage, i: 8, Lang: "C lang" },
-    { Image: htmlImage, i: 4, Lang: "HTML5" },
-    { Image: cssImage, i: 5, Lang: "css3" },
-    { Image: jsImage, i: 6, Lang: "javascript" },
-    { Image: typeImage, i: 7, Lang: "typescript" },
-    { Image: clangImage, i: 8, Lang: "C lang" },
+    { Image: htmlImage, Lang: "HTML5" },
+    { Image: cssImage, Lang: "css3" },
+    { Image: jsImage, Lang: "javascript" },
+    { Image: typeImage, Lang: "typescript" },
+    { Image: clangImage, Lang: "C lang" },
+    { Image: htmlImage, Lang: "HTML5" },
+    { Image: cssImage, Lang: "css3" },
+    { Image: jsImage, Lang: "javascript" },
+    { Image: typeImage, Lang: "typescript" },
+    { Image: clangImage, Lang: "C lang" },
   ];
   return (
     <>
       <SlideContainer>
-        <SlideItemList ref={containerRef}>
+        <SlideItemList>
           {rightImage.map((user) => (
             <>
-              <SlideItem activeIndex={count}>
+              <SlideItem>
                 <SlideImage
                   src={user.Image}
                   width={50}
@@ -137,7 +91,7 @@ const SlideItemList = styled.ul`
   display: flex;
   width: calc(384px * 10);
 `;
-const SlideItem = styled.li<{ activeIndex: number }>`
+const SlideItem = styled.li`
   height: 100px;
   width: 384px;
   list-style: none;
