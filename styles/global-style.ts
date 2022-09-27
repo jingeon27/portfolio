@@ -9,12 +9,13 @@ export const GlobalStyle = createGlobalStyle`
 }
  a { cursor: pointer; text-decoration: none; }
  body {
+   overflow: hidden;
     background-color: #323232;
-    overflow: hidden;
      -webkit-user-select:none;
   -moz-user-select:none;
   -ms-user-select:none;
-  user-select:none
+  user-select:none;
+  padding: 0;
+  margin: 0;
  }
- 
- `;
+`;

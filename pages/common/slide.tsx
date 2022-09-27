@@ -17,7 +17,7 @@ interface imageProps {
   Lang: string;
 }
 const SlidePage = () => {
-  const rightImage: imageProps[] = [
+  const leftImage: imageProps[] = [
     { Image: htmlImage, Lang: "HTML5" },
     { Image: cssImage, Lang: "css3" },
     { Image: jsImage, Lang: "javascript" },
@@ -29,7 +29,7 @@ const SlidePage = () => {
     { Image: typeImage, Lang: "typescript" },
     { Image: clangImage, Lang: "C lang" },
   ];
-  const leftImage: imageProps[] = [
+  const rightImage: imageProps[] = [
     { Image: reactImage, Lang: "React" },
     { Image: recoilImage, Lang: "recoil" },
     { Image: bootImage, Lang: "Bootstrap" },
@@ -44,14 +44,16 @@ const SlidePage = () => {
   const router = useRouter();
   useEffect(() => {
     document.addEventListener("wheel", (e) => {
-      router.push("/profile");
+      if (e.deltaY > 0) {
+        router.push("/profile");
+      }
     });
   }, []);
   return (
     <>
       <SlideContainer>
         <SlideItemList>
-          {rightImage.map((user) => (
+          {leftImage.map((user) => (
             <>
               <SlideItem>
                 <SlideImage
@@ -67,7 +69,7 @@ const SlidePage = () => {
       </SlideContainer>
       <SlideContainer>
         <SlideItemlistRight>
-          {leftImage.map((user) => (
+          {rightImage.map((user) => (
             <>
               <SlideItem>
                 <SlideImage
@@ -100,17 +102,6 @@ const SlideContainer = styled.div`
   position: relative;
   top: 200px;
   width: 1920px;
-
-  &::after {
-    right: 0;
-    top: 0;
-    transform: rotateZ(180deg);
-  }
-
-  &::before {
-    left: 0;
-    top: 0;
-  }
 `;
 const SlideItemList = styled.ul`
   animation: ${scroll} 40s linear infinite;

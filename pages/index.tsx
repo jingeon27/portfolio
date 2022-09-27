@@ -3,34 +3,34 @@ import type { NextPage } from "next";
 import styled, { keyframes, css } from "styled-components";
 import CanvasAnimation from "./hook/canvasAnimation";
 import GithubImage from "../public/image/Github.png";
-import SlidePage from "./hook/slide";
 import dynamic from "next/dist/shared/lib/dynamic";
-const SlideProps = dynamic(() => import("./hook/slide"), {
+const SlideProps = dynamic(() => import("./common/slide"), {
   ssr: false,
 });
 const Home: NextPage = () => {
   return (
     <>
-      <SlideProps />
-      <Wrap>
-        <ChatBox>
-          <ChatBoxPosition> Github repo 바로가기입니다. </ChatBoxPosition>
-        </ChatBox>
-      </Wrap>
-      <Layout>
-        <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
-      </Layout>
-      <Position>
-        <a href="https://github.com/jingeon27/portfolio">
-          <Image
-            src={GithubImage}
-            alt="github 바로가기 링크입니다."
-            width={100}
-            height={100}
-          />
-        </a>
+      <Box>
+        <SlideProps />
+        <Wrap>
+          <ChatBox>
+            <ChatBoxPosition> Github repo 바로가기입니다. </ChatBoxPosition>
+          </ChatBox>
+        </Wrap>
+        <Layout>
+          <CanvasAnimation canvasWidth={1920} canvasHeight={980} />
+        </Layout>
+        <Position>
+          <a href="https://github.com/jingeon27/portfolio">
+            <Image
+              src={GithubImage}
+              alt="github 바로가기 링크입니다."
+              width={100}
+              height={100}
+            />
+          </a>
 
-        {/* <div className="front">
+          {/* <div className="front">
           <Image
             src={Github}
             alt="github이미지입니다."
@@ -46,7 +46,8 @@ const Home: NextPage = () => {
             height={100}
           ></Image>
         </div> */}
-      </Position>
+        </Position>
+      </Box>
     </>
   );
 };
@@ -166,4 +167,14 @@ const Position = styled.div`
   margin: 0 auto;
   width: 100px;
   height: 100px;
+`;
+const Box = styled.div`
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
 `;
