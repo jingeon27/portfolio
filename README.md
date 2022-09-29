@@ -9,6 +9,5 @@
 ---
 
 - next.js
-- react-bootstrap
 - typescript
 - styled-components
